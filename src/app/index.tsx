@@ -1,98 +1,53 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useState } from 'react';
+import { Pressable, SafeAreaView, ScrollView, StyleSheet, Text } from 'react-native';
+import { Header } from '../components/Header';
+import { ScanCounter } from '../components/ScanCounter';
+import { StudentCard } from '../components/StudentCard';
+import { StudentProfile } from '../types/student';
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+const initialStudent: StudentProfile = {
+  name: 'Jed E. Tipudan',
+  idNumber: '2019-2711',
+  program: 'BS in Information Technology (BSIT)',
+  yearLevel: '3rd Year — Section C',
+  avatarUrl: 'https://i.ibb.co/DDRLPqX9/1000014951-Photoroom.png',
+  campus: 'Main Campus (Guang-guang, Mati City)',
+};
 
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
+export default function App() {
+  const [isActive, setIsActive] = useState<boolean>(true);
+  const [gateScans, setGateScans] = useState<number>(3);
+
   return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
-
-export default function HomeScreen() {
-  return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
-
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
-
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
-
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView contentContainerStyle={styles.container}>
+        <Header />
+        <StudentCard student={initialStudent} isActive={isActive} />
+        <ScanCounter
+          count={gateScans}
+          onScan={() => setGateScans(prev => prev + 1)}
+          onReset={() => setGateScans(0)}
+        />
+        <Pressable
+          style={[styles.toggleBtn, isActive ? styles.suspendBtn : styles.activateBtn]}
+          onPress={() => setIsActive(prev => !prev)}
+        >
+          <Text style={[styles.toggleText, isActive ? styles.suspendText : styles.activateText]}>
+            {isActive ? '⚠️ Simulate Pass Suspension' : '✅ Reactivate Student Pass'}
+          </Text>
+        </Pressable>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
-  },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
-  },
-  title: {
-    textAlign: 'center',
-  },
-  code: {
-    textTransform: 'uppercase',
-  },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
-  },
+  safeArea: { flex: 1, backgroundColor: '#F8FAFC' },
+  container: { padding: 16, gap: 16 },
+  toggleBtn: { padding: 12, borderRadius: 8, alignItems: 'center', borderWidth: 1 },
+  suspendBtn: { backgroundColor: '#FEE2E2', borderColor: '#FCA5A5' },
+  activateBtn: { backgroundColor: '#DCFCE7', borderColor: '#86EFAC' },
+  toggleText: { fontSize: 13, fontWeight: '800' },
+  suspendText: { color: '#991B1B' },
+  activateText: { color: '#166534' },
 });

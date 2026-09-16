@@ -1,0 +1,488 @@
+
+ ITMSD 1 | Laboratory Exercise 03: React Native Fundamentals — DOrSU
+ITMSD 1 — Laboratory Exercise 03
+ Fundamentals of Mobile Design and Tools
+ 🌓
+Getting Started
+1. Overview & Objectives
+2. Setup & Prerequisites
+3. Java & Web Bridge Must Read
+4. Project & Config Explorer Interactive
+Laboratory Modules
+Module 1: Expo & CLI Helper Tool
+Module 2: Core Primitives JSX
+Module 3: Modular Props Types
+Module 4: Dynamic State Hook
+Module 5: Flexbox Visualizer Visualizer
+Module 6: Synthesis App Final
+Assessment & Deliverables
+Knowledge Check Quiz Gamified
+Pre-Submission Validator Auto-Check
+Grading Rubric 100 Pts
+Laboratory Deliverables Submit
+Quick Cheat Sheet
+References & Tutorials
+Academic Year 2026–2027 • 2nd Semester
+Laboratory Exercise 03: React Native Fundamentals
+Step-by-step guided laboratory exercise constructing the DOrSU Digital Campus Pass using Components, Props, State Management, and Flexbox Styling.
+Course: ITMSD 1 — Fundamentals of Mobile Design and Tools
+Total Score: 100 Points
+Toolchain: Expo SDK 57 • React 19 • TypeScript
+1. Learning Objectives CLO2 Aligned
+By completing this laboratory activity, students will demonstrate the ability to:
+ Scaffold and run a modern React Native app using Expo CLI with TypeScript.
+ Bridge previous knowledge of Java (Android) and Web (HTML/CSS) to React Native concepts.
+ Navigate and configure the project directory structure (app.json, package.json, tsconfig.json).
+ Contrast native UI primitives (View, Text, Image, Pressable) with HTML elements.
+ Establish strict unidirectional data flow using TypeScript-typed props.
+ Manage dynamic screen state and reactive UI updates with the useState hook.
+ Construct responsive cross-platform layouts using StyleSheet.create() and Flexbox.
+ Assemble and test the full DOrSU Digital Campus Pass mobile application.
+2. Environment Prerequisites
+💡
+ Prerequisites Check: Ensure your computer has Node.js LTS (v18+) and VS Code. Install Expo Go on your Android/iOS phone or configure an Android Studio Emulator.
+3. Conceptual Bridge: Java Android & Web HTML/CSS vs React Native
+If you already know Java (Android Studio) and Web Development (HTML/CSS/JS), React Native is simply a modern convergence of both! Explore the interactive tabs below to map your existing skills:
+ 📱 1. UI Primitives & Tags
+ 🎨 2. Styling & Layout Engines
+ ⚡ 3. State & Reactivity
+ 🧩 4. Props vs Java Constructors
+How visual elements translate from Android Java XML, Web HTML, and React Native JSX:
+ Java (Android XML)
+ Android
+Uses native Android View XML tags compiled into Android bytecode:
+<LinearLayout
+ android:orientation="vertical">
+ <TextView android:text="Hello" />
+ <ImageView android:src="..." />
+ <Button android:text="Tap" />
+</LinearLayout>
+ Web (HTML5)
+ Browser DOM
+Uses browser DOM elements rendered inside a web browser engine:
+<div class="container">
+ <p>Hello</p>
+ <img src="..." />
+ <button>Tap</button>
+</div>
+ React Native (TypeScript)
+ Cross-Platform
+Uses cross-platform JSX primitives that map to REAL native UI:
+<View style={styles.container}>
+ <Text>Hello</Text>
+ <Image source={{ uri: ... }} />
+ <Pressable>
+ <Text>Tap</Text>
+ </Pressable>
+</View>
+ 💡 Key Takeaway: In React Native, <View> compiles to an actual android.view.ViewGroup on Android and UIView on iOS! It is not a web browser wrapper.
+Comparing layout attributes, density pixels, and default directions:
+ Java Android XML
+ Android
+Attributes in XML; density-independent pixels (dp):
+android:layout_width="match_parent"
+android:orientation="vertical"
+android:padding="16dp"
+android:background="#FFFFFF"
+ Web CSS
+ Web
+CSS stylesheets; defaults to row direction; unit strings:
+.container {
+ display: flex;
+ flex-direction: row; /* DEFAULT! */
+ padding: 16px;
+ background-color: #FFFFFF;
+}
+ React Native StyleSheet
+ React Native
+JavaScript objects; defaults to column; unitless DP numbers:
+const styles = StyleSheet.create({
+ container: {
+ flex: 1,
+ flexDirection: 'column', /* DEFAULT! */
+ padding: 16, /* Unitless DP */
+ backgroundColor: '#FFFFFF',
+ }
+});
+ ⚠️ The #1 Pitfall for Web Developers: In Web CSS, flex-direction defaults to row (horizontal). In React Native, it defaults to column (vertical), which perfectly matches Android's LinearLayout orientation="vertical"!
+Imperative DOM/View Mutation vs. Declarative Reactive State:
+ Java (Imperative)
+ Java Android
+You manually find the view and tell the OS HOW to update:
+TextView tv = findViewById(R.id.counter);
+Button btn = findViewById(R.id.btnScan);
+int count = 0;
+btn.setOnClickListener(v -> {
+ count++;
+ tv.setText(String.valueOf(count));
+});
+ React Native (Declarative)
+ React Native
+You declare WHAT the screen looks like; React updates it automatically:
+const [count, setCount] = useState(0);
+return (
+ <View>
+ <Text>{count}</Text>
+ <Pressable onPress={() => setCount(c => c + 1)}>
+ <Text>+1 Scan</Text>
+ </Pressable>
+ </View>
+);
+ 💡 Key Takeaway: In Java, you mutate UI elements directly via setters (tv.setText()). In React Native, you update the state variable (setCount), and React's virtual engine automatically re-renders the exact text node!
+Passing Parameters to Reusable UI Components:
+ Java Class Constructors / Setters
+ Java OOP
+Data passed into class constructor or public setters:
+StudentCard card1 = new StudentCard(
+ "Juan Dela Cruz", 
+ "2024-008492-MT"
+);
+containerLayout.addView(card1);
+ React Native Props (JSX Attributes)
+ React Native
+Data passed as typed attributes in JSX:
+<StudentCard 
+ student={juanProfile} 
+ isActive={true} 
+/>
+ 💡 Key Takeaway: Props are immutable (read-only) in the child component. They are identical to passing arguments to a function or constructor.
+4. Project Structure & Configuration Files Explorer
+Click any file or folder in the tree below to inspect its exact location, purpose, and key configuration options:
+📁 Project Files
+⚙️ app.json
+📦 package.json
+🔧 tsconfig.json
+🚫 .gitignore
+📄 index.ts
+📄 App.tsx
+📁 src/types/student.ts
+📁 src/components/
+📁 node_modules/
+Module 1 — Scaffolding, Metro & Fast Refresh Exercise 1
+Scaffold a clean Expo project with TypeScript, launch the Metro bundler, and verify Fast Refresh.
+ ⚡ Instant Terminal Command Generator (Bootstrap Helper)
+Select your preferred package manager and operating system to generate the exact terminal command sequence ready to copy and paste:
+ Package Manager:
+ npm
+ pnpm
+ yarn
+ bun
+ Operating System / Shell:
+ Windows (PowerShell)
+ Windows (CMD)
+ macOS / Linux (Bash)
+ Project Directory / Slug:
+ Include Web Testing Packages (react-dom & react-native-web for browser testing)
+ Terminal Commands (npm • PowerShell)
+ 📋 Copy Command Sequence
+⚡
+ Fast Refresh Verification: Modify the text in App.tsx to "DOrSU Campus Pass v1.0" and save. Notice that your phone updates within 1 second without a full page reload or loss of state.
+Module 2 — Core Primitives & JSX Anatomy Exercise 2
+In mobile development, there is no DOM. Web tags like <div>, <p>, and <button> do not exist. Instead, React Native provides native primitives:
+Web Element (HTML)
+React Native Primitive
+Key Mobile Characteristics
+<div>
+<View>
+Flex container by default; flexDirection is column (vertical).
+<p>, <span>, <h1>
+<Text>
+Mandatory for all text. Putting raw text in <View> crashes the app.
+<img>
+<Image>
+Remote URIs require explicit width and height in styles.
+<button>
+<Pressable>
+Modern touchable primitive supporting hover, focus, and dynamic pressed states.
+Module 3 — Modular Components & TypeScript Props Exercise 3
+Establish strict type contracts and extract the profile card into an isolated, reusable file.
+Step 3.1: Define TypeScript Contract (src/types/student.ts)
+ src/types/student.ts
+ 📋 Copy
+export interface StudentProfile {
+ name: string;
+ idNumber: string;
+ program: string;
+ yearLevel: string;
+ avatarUrl: string;
+ campus: string;
+}
+export interface StatusBadgeProps {
+ isActive: boolean;
+}
+Step 3.2: Reusable StudentCard Component
+ src/components/StudentCard.tsx
+ 📋 Copy
+import React from 'react';
+import { StyleSheet, Text, View, Image } from 'react-native';
+import { StudentProfile } from '../types/student';
+import { StatusBadge } from './StatusBadge';
+interface StudentCardProps {
+ student: StudentProfile;
+ isActive: boolean;
+}
+export const StudentCard: React.FC<StudentCardProps> = ({ student, isActive }) => {
+ return (
+ <View style={styles.card}>
+ <View style={styles.topRow}>
+ <Image source={{ uri: student.avatarUrl }} style={styles.avatar} />
+ <View style={styles.details}>
+ <Text style={styles.name}>{student.name}</Text>
+ <Text style={styles.idNumber}>{student.idNumber}</Text>
+ <Text style={styles.program}>{student.program}</Text>
+ <Text style={styles.yearLevel}>{student.yearLevel}</Text>
+ </View>
+ </View>
+ <StatusBadge isActive={isActive} />
+ <Text style={styles.campus}>Campus: {student.campus}</Text>
+ </View>
+ );
+};
+Module 4 — Dynamic State Management with useState Exercise 4
+Implement dynamic gate scans and administrative access toggles using React's useState hook.
+ src/components/ScanCounter.tsx
+ 📋 Copy
+import React from 'react';
+import { StyleSheet, Text, View, Pressable } from 'react-native';
+interface ScanCounterProps {
+ count: number;
+ onScan: () => void;
+ onReset: () => void;
+}
+export const ScanCounter: React.FC<ScanCounterProps> = ({ count, onScan, onReset }) => (
+ <View style={styles.container}>
+ <Text style={styles.title}>Campus Gate Verification Log</Text>
+ <View style={styles.counterDisplay}>
+ <Text style={styles.label}>Today's Gate Entries:</Text>
+ <Text style={styles.value}>{count}</Text>
+ </View>
+ <View style={styles.btnRow}>
+ <Pressable style={styles.btnPrimary} onPress={onScan}>
+ <Text style={styles.btnText}>+1 Scan at Gate</Text>
+ </Pressable>
+ <Pressable style={styles.btnSecondary} onPress={onReset}>
+ <Text style={styles.btnSecText}>Reset Scans</Text>
+ </Pressable>
+ </View>
+ </View>
+);
+💡
+ Functional State Updates: Always write setGateScans(prev => prev + 1) instead of setGateScans(gateScans + 1) to guarantee accurate state reconciliation during fast button taps.
+Module 5 — StyleSheet & Flexbox Mastery Exercise 5
+React Native styles are written using JavaScript objects. Learn how flexDirection, justifyContent, and alignItems govern mobile layouts.
+ flexDirection: column
+ column (RN Default)
+ row
+ column-reverse
+ row-reverse
+ justifyContent (Main Axis): flex-start
+ flex-start
+ center
+ flex-end
+ space-between
+ space-around
+ space-evenly
+ alignItems (Cross Axis): stretch
+ stretch (Default)
+ flex-start
+ center
+ flex-end
+ gap (Spacing): 12px
+ 0
+ 8px
+ 12px
+ 16px
+ 24px
+ Quick Presets:
+ Card Header (Row + Space-Between)
+ Card Body (Column + Stretch)
+ Button Bar (Row + Equal Share)
+ ↕ Main Axis: Vertical (justifyContent controls up/down) | ↔ Cross Axis: Horizontal (alignItems controls stretch/center)
+Item 1: Header
+DOrSU Institutional Banner
+Item 2: StudentCard
+Juan Carlos Dela Cruz
+Item 3: ScanCounter
+Gate Verification Log
+ Live Generated StyleSheet Object
+ 📋 Copy StyleSheet
+Module 6 — Synthesis Challenge: DOrSU Digital Campus Pass Exercise 6
+Integrate all components into App.tsx with SafeAreaView, interactive controls, and peer props demo.
+🎉
+ Interactive Test in Live Simulator: Interact with the virtual smartphone on the right side of this page to test the complete application flow right now!
+6. Interactive Knowledge Verification & Self-Assessment Quiz Checks
+Test your conceptual understanding of React Native before writing code or submitting your lab. Select the best answer for each question:
+ Concept Mastery Tracker
+ Answer the 4 concept checks below to verify your readiness.
+0 / 4 Answered
+Question 1 • Core Primitives
+In React Native, what happens if you place bare text directly inside a <View> without a <Text> component (e.g., <View>Welcome to DOrSU</View>)?
+ A. It automatically renders as standard unstyled text.
+ B. The bundler compiles it into an HTML <span> element.
+ C. The mobile app crashes at runtime with a "Raw text must be wrapped in an explicit <Text> component" error.
+ D. It displays inside the mobile device's system status bar.
+Question 2 • Unidirectional Data Flow
+Why should a child component (such as StudentCard) never execute props.isActive = false?
+ A. React Native enforces unidirectional data flow; props are strictly immutable (read-only) and can only be updated by the parent holding state.
+ B. Because 'isActive' is a reserved system keyword in TypeScript.
+ C. Because boolean props can only be modified inside a while loop.
+ D. Reassigning props is allowed, but only inside functional components.
+Question 3 • Layout Engine Defaults
+How does React Native's default Flexbox layout engine differ fundamentally from standard Web CSS?
+ A. React Native does not support Flexbox, only CSS Grid.
+ B. In React Native, flexDirection defaults to 'column' (vertical), whereas Web CSS defaults to 'row' (horizontal).
+ C. In React Native, dimensions must always specify unit strings like 'px' or 'rem'.
+ D. React Native automatically aligns all elements with float: left.
+Question 4 • State Reactivity
+In Android Java, you imperatively write tv.setText(String.valueOf(count)). What is the declarative equivalent in React Native?
+ A. document.getElementById('counter').innerText = count;
+ B. Calling App.reboot() to redraw the screen canvas.
+ C. Calling setCount(prev => prev + 1), which schedules a re-render of the JSX view tree where <Text>{count}</Text> updates automatically.
+ D. Directly mutating this.state.count = count + 1.
+7. Pre-Submission Code Validator & Rubric Auto-Check Self-Audit
+Paste your component or screen code (App.tsx, StudentCard.tsx, or ScanCounter.tsx) below to run a client-side static analysis check against the rubric criteria before final submission:
+ App.tsx
+ StudentCard.tsx
+ ScanCounter.tsx
+ ⚡ Load Compliant Sample Code
+ 🔍 Run Pre-Submission Diagnostic
+ Clear
+ Paste your code above and click "Run Pre-Submission Diagnostic" to audit compliance with the 100-point rubric.
+8. Grading Rubric (100 Points Total)
+Criteria
+Exemplary (90-100%)
+Satisfactory (75-89%)
+Needs Work (<75%)
+Pts
+Component Architecture & JSX Structure
+Clean hierarchy; native primitives used correctly; no invalid web tags; clean modular separation.
+Functional components created; minor structural issues or redundant nesting.
+Missing modular files; raw text outside <Text> tags; monolithic single file.
+25
+TypeScript Interfaces & Props
+Strict interfaces (StudentProfile); zero any types; clean data flow.
+Props passed successfully; minor type annotation missing.
+Props hardcoded or mutated in child; TypeScript errors ignored.
+20
+State Management & Interactivity
+useState with functional updates; smooth re-renders on touch; bug-free.
+Counter and toggle work as expected; minor state handling flaw.
+State fails to re-render; buttons unresponsive; state mutated directly.
+25
+StyleSheet & Flexbox Layout
+Polished layout with StyleSheet.create(); proper use of gap and alignment.
+Responsive layout with clean alignment; minor spacing irregularities.
+Broken layout; overlapping text; hardcoded non-responsive dimensions.
+20
+Documentation & Screenshots
+Crystal-clear screenshots for all 6 modules; insightful technical reflections; clean PDF format.
+Screenshots provided for most modules; brief reflections.
+Missing substantial screenshots; incomplete reflections.
+10
+9. Laboratory Deliverables & Submission Guidelines Mandatory
+To receive full credit (100 Points), students must complete all 6 laboratory modules and submit the following three official deliverables via the DOrSU FCET LMS / Google Classroom portal:
+ 📄
+ 1. PDF Laboratory Report
+ PDF Document
+The completed, professionally formatted laboratory report containing source code listings, technical reflections, and high-resolution annotated screenshots.
+Requirements & Specifications:
+Strict Naming: ITMSD1_Lab03_[LastName]_[FirstName].pdf
+6 Module Screenshots: High-res captures of terminal outputs & running mobile screen.
+Code Listings: Complete code for App.tsx, StudentCard.tsx, ScanCounter.tsx, and student.ts.
+Written Reflection: Detailed answers to the evaluation and conceptual bridge questions.
+ 🐙
+ 2. Public GitHub Repository
+ Version Control
+The complete Expo SDK 57 project repository pushed to GitHub, demonstrating proper Git version control practices and clean modular architecture.
+Requirements & Specifications:
+Public Visibility: Verify repository visibility is set to PUBLIC (not private).
+Git Cleanliness: node_modules/ and .expo/ must be strictly ignored in .gitignore.
+Commit History: Meaningful commit messages representing each of the 6 exercises.
+README.md: Project documentation with setup and run instructions (npm install && npx expo start).
+ 🎥
+ 3. Live App Demo / Recording
+ 30–60 Seconds
+A short video screen recording or live in-person mobile demonstration proving that state interactivity and components function without bugs.
+Demonstration Checklist:
+Gate Counter: Tap +1 Scan at Gate at least 3 times; verify counter updates.
+Reset Action: Tap Reset Scans; verify counter returns to 0.
+Access Toggle: Toggle pass suspension; verify pill badge turns red ("SUSPENDED") and reactivates to green ("ACTIVE").
+Video Link: MP4 file upload or unlisted YouTube/Google Drive link in the report.
+📋
+ Institutional Submission Policy & Deadlines:
+Submission Portal: Submit via the official DOrSU Google Classroom / LMS assignment portal before the deadline.
+Late Submissions: Deducted 10 points per calendar day late. No submissions accepted after 3 calendar days post-deadline.
+Academic Integrity: All code and documentation must represent the student's individual intellectual work. Redundant duplicate code or verbatim plagiarized worksheets will receive a grade of zero (0) and be referred to the FCET Academic Committee.
+Pre-Submission Verification Checklist
+Check off each deliverable item below before submitting your laboratory package to ensure full rubric compliance:
+ My PDF report strictly adheres to the naming standard: ITMSD1_Lab03_[LastName]_[FirstName].pdf.
+ All 6 laboratory module exercises have corresponding high-resolution, readable screenshots included.
+ My GitHub repository is set to PUBLIC and verified accessible from an incognito browser window.
+ I verified that heavy folders (node_modules/ and .expo/) were NOT pushed to my GitHub repository.
+ I ran the Pre-Submission Code Validator tool in Section 7 and achieved a compliance score of 90%+.
+ Interactive touch events (Gate Scan, Reset, and Access Toggle) have been tested and function without crashes.
+10. Quick Reference Cheat Sheet
+API / Element
+Role
+Code Snippet
+<View>
+Container
+<View style={styles.card}>...</View>
+<Text>
+Typography
+<Text style={styles.name}>Juan</Text>
+<Image>
+Remote Image
+<Image source={{ uri: '...' }} style={{ width: 60, height: 60 }} />
+<Pressable>
+Touch Button
+<Pressable onPress={handlePress}>...</Pressable>
+useState()
+Local State
+const [count, setCount] = useState<number>(0);
+flexDirection
+Flex Axis
+flexDirection: 'row' /* default is 'column' */
+gap
+Item Spacing
+gap: 12 /* spacing between children */
+11. References & Curated Tutorials
+ Official Docs
+React Native Getting Started
+Core components, props, state, and StyleSheet documentation from Meta.
+ Visit Documentation →
+ Toolchain
+Expo Documentation
+Managed workflow guide, Expo Go configuration, and Fast Refresh debugging.
+ Visit Expo Docs →
+ Video Playlist
+The Net Ninja React Native
+Hands-on, beginner-friendly video walkthrough of core components and Flexbox.
+ Watch on YouTube →
+ Interactive Sandbox
+React Native Snack
+Test code in your browser with zero local installation on virtual phones.
+ Launch Snack →
+DAVAO ORIENTAL STATE UNIVERSITY
+FACULTY OF COMPUTING, ENGINEERING, AND TECHNOLOGY
+ OFFICIAL STUDENT DIGITAL PASS • AY 2026–2027
+ JUAN CARLOS D. DELA CRUZ
+ID: 2024-008492-MT
+BS in Information Technology (BSIT)
+3rd Year — Section A
+ STATUS: VERIFIED ACTIVE PASS
+Campus: Main Campus (Guang-guang, Mati City)
+Campus Gate Verification Log
+ Today's Gate Entries:
+ 3
+ +1 Scan at Gate
+ Reset Scans
+ ⚠️ Simulate Pass Suspension
+ Show Peer Component Demo
+PEER PROPS DEMO:
+ MARIA CLARA S. SANTOS
+ID: 2024-009183-MT
+BS in Information Technology (BSIT)
+2nd Year — Section B
+ STATUS: VERIFIED ACTIVE PASS
+📱 Live Interactive Mobile Simulator
