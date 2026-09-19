@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Header } from '../components/Header';
-import { ScanCounter } from '../components/ScanCounter';
-import { StudentCard } from '../components/StudentCard';
-import { StudentProfile } from '../types/student';
+import { Header } from './src/components/Header';
+import { ScanCounter } from './src/components/ScanCounter';
+import { StudentCard } from './src/components/StudentCard';
+import { StudentProfile } from './src/types/student';
 
 const initialStudent: StudentProfile = {
   name: 'Jed E. Tipudan',
