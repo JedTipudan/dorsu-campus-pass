@@ -5,28 +5,53 @@ export const Header: React.FC = () => (
   <View style={styles.header}>
     <Text style={styles.title}>DAVAO ORIENTAL STATE UNIVERSITY</Text>
     <Text style={styles.sub}>FACULTY OF COMPUTING, ENGINEERING, AND TECHNOLOGY</Text>
-    <Text style={styles.badge}>OFFICIAL STUDENT DIGITAL PASS • AY 2026–2027</Text>
+    <View style={styles.badgeWrapper}>
+      <Text style={styles.badge}>OFFICIAL STUDENT DIGITAL PASS • AY 2026–2027</Text>
+    </View>
   </View>
 );
 
 const styles = StyleSheet.create({
   header: {
     backgroundColor: '#00758F',
-    padding: 16,
-    borderRadius: 12,
+    paddingVertical: 22,
+    paddingHorizontal: 20,
+    borderRadius: 16,
     alignItems: 'center',
-    borderBottomWidth: 3,
+    borderBottomWidth: 4,
     borderBottomColor: '#F29111',
+    shadowColor: '#00758F',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 6,
   },
-  title: { color: '#fff', fontSize: 13, fontWeight: '800', letterSpacing: 0.6, textAlign: 'center' },
-  sub: { color: '#fff', fontSize: 10, fontWeight: '600', opacity: 0.9, marginTop: 2, textAlign: 'center' },
+  title: {
+    color: '#fff',
+    fontSize: 15,
+    fontWeight: '800',
+    letterSpacing: 1,
+    textAlign: 'center',
+  },
+  sub: {
+    color: '#E0F2FE',
+    fontSize: 11,
+    fontWeight: '600',
+    marginTop: 4,
+    textAlign: 'center',
+    letterSpacing: 0.3,
+  },
+  badgeWrapper: {
+    marginTop: 10,
+    backgroundColor: 'rgba(0,0,0,0.25)',
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 20,
+  },
   badge: {
     color: '#fff',
-    fontSize: 9,
-    backgroundColor: 'rgba(0,0,0,0.2)',
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    borderRadius: 4,
-    marginTop: 4,
+    fontSize: 10,
+    fontWeight: '700',
+    letterSpacing: 0.5,
   },
 });
