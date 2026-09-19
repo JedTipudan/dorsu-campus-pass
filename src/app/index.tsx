@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Pressable, SafeAreaView, ScrollView, StyleSheet, Text } from 'react-native';
+import { Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Header } from '../components/Header';
 import { ScanCounter } from '../components/ScanCounter';
 import { StudentCard } from '../components/StudentCard';
@@ -20,7 +20,10 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        showsVerticalScrollIndicator={false}
+      >
         <Header />
         <StudentCard student={initialStudent} isActive={isActive} />
         <ScanCounter
@@ -33,21 +36,65 @@ export default function App() {
           onPress={() => setIsActive(prev => !prev)}
         >
           <Text style={[styles.toggleText, isActive ? styles.suspendText : styles.activateText]}>
-            {isActive ? '⚠️ Simulate Pass Suspension' : '✅ Reactivate Student Pass'}
+            {isActive ? '⚠️  Simulate Pass Suspension' : '✅  Reactivate Student Pass'}
           </Text>
         </Pressable>
+
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>DOrSU Digital Campus Pass • ITMSD 1</Text>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: { flex: 1, backgroundColor: '#F8FAFC' },
-  container: { padding: 16, gap: 16 },
-  toggleBtn: { padding: 12, borderRadius: 8, alignItems: 'center', borderWidth: 1 },
-  suspendBtn: { backgroundColor: '#FEE2E2', borderColor: '#FCA5A5' },
-  activateBtn: { backgroundColor: '#DCFCE7', borderColor: '#86EFAC' },
-  toggleText: { fontSize: 13, fontWeight: '800' },
-  suspendText: { color: '#991B1B' },
-  activateText: { color: '#166534' },
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#F1F5F9',
+  },
+  container: {
+    padding: 16,
+    gap: 14,
+    paddingBottom: 32,
+  },
+  toggleBtn: {
+    padding: 16,
+    borderRadius: 14,
+    alignItems: 'center',
+    borderWidth: 1.5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 6,
+    elevation: 2,
+  },
+  suspendBtn: {
+    backgroundColor: '#FFF1F2',
+    borderColor: '#FCA5A5',
+  },
+  activateBtn: {
+    backgroundColor: '#F0FDF4',
+    borderColor: '#86EFAC',
+  },
+  toggleText: {
+    fontSize: 14,
+    fontWeight: '800',
+    letterSpacing: 0.3,
+  },
+  suspendText: {
+    color: '#DC2626',
+  },
+  activateText: {
+    color: '#16A34A',
+  },
+  footer: {
+    alignItems: 'center',
+    paddingTop: 8,
+  },
+  footerText: {
+    fontSize: 11,
+    color: '#94A3B8',
+    fontWeight: '500',
+  },
 });
