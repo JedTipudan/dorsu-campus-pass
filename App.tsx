@@ -15,17 +15,18 @@ const initialStudent: StudentProfile = {
 };
 
 const peerStudent: StudentProfile = {
-  name: 'Maria Clara S. Santos',
-  idNumber: '2024-009183-MT',
+  name: 'Peejay Parucho',
+  idNumber: '2024-2733',
   program: 'BS in Information Technology (BSIT)',
-  yearLevel: '2nd Year — Section B',
-  avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200',
+  yearLevel: '3nd Year — Section C',
+  avatarUrl: 'https://i.ibb.co/Q1vJpZt/122535511-110551097514294-307804650318904506-n.jpg',
   campus: 'Main Campus (Guang-guang, Mati City)',
 };
 
 export default function App() {
   const [isActive, setIsActive] = useState<boolean>(true);
   const [gateScans, setGateScans] = useState<number>(3);
+  const [showPeer, setShowPeer] = useState<boolean>(false);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -49,10 +50,18 @@ export default function App() {
           </Text>
         </Pressable>
 
-        <View style={styles.peerSection}>
-          <Text style={styles.peerLabel}>PEER PROPS DEMO</Text>
-          <StudentCard student={peerStudent} isActive={true} />
-        </View>
+        <Pressable style={styles.peerBtn} onPress={() => setShowPeer(prev => !prev)}>
+          <Text style={styles.peerBtnText}>
+            {showPeer ? 'Hide Peer Demo' : 'Show Peer Component Demo'}
+          </Text>
+        </Pressable>
+
+        {showPeer && (
+          <View style={styles.peerSection}>
+            <Text style={styles.peerLabel}>PEER PROPS DEMO</Text>
+            <StudentCard student={peerStudent} isActive={true} />
+          </View>
+        )}
 
         <View style={styles.footer}>
           <Text style={styles.footerText}>DOrSU Digital Campus Pass • ITMSD 1</Text>
@@ -101,6 +110,19 @@ const styles = StyleSheet.create({
   },
   activateText: {
     color: '#16A34A',
+  },
+  peerBtn: {
+    padding: 12,
+    borderRadius: 10,
+    alignItems: 'center',
+    backgroundColor: '#F8FAFC',
+    borderWidth: 1,
+    borderColor: '#CBD5E1',
+  },
+  peerBtnText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#00758F',
   },
   peerSection: {
     gap: 8,
