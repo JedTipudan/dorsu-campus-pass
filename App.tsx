@@ -14,6 +14,15 @@ const initialStudent: StudentProfile = {
   campus: 'Main Campus (Guang-guang, Mati City)',
 };
 
+const peerStudent: StudentProfile = {
+  name: 'Maria Clara S. Santos',
+  idNumber: '2024-009183-MT',
+  program: 'BS in Information Technology (BSIT)',
+  yearLevel: '2nd Year — Section B',
+  avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200',
+  campus: 'Main Campus (Guang-guang, Mati City)',
+};
+
 export default function App() {
   const [isActive, setIsActive] = useState<boolean>(true);
   const [gateScans, setGateScans] = useState<number>(3);
@@ -39,6 +48,11 @@ export default function App() {
             {isActive ? '⚠️  Simulate Pass Suspension' : '✅  Reactivate Student Pass'}
           </Text>
         </Pressable>
+
+        <View style={styles.peerSection}>
+          <Text style={styles.peerLabel}>PEER PROPS DEMO</Text>
+          <StudentCard student={peerStudent} isActive={true} />
+        </View>
 
         <View style={styles.footer}>
           <Text style={styles.footerText}>DOrSU Digital Campus Pass • ITMSD 1</Text>
@@ -87,6 +101,16 @@ const styles = StyleSheet.create({
   },
   activateText: {
     color: '#16A34A',
+  },
+  peerSection: {
+    gap: 8,
+  },
+  peerLabel: {
+    fontSize: 11,
+    fontWeight: '800',
+    color: '#00758F',
+    letterSpacing: 0.8,
+    textTransform: 'uppercase',
   },
   footer: {
     alignItems: 'center',
