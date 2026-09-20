@@ -12,17 +12,16 @@ npx expo start
 ## Project Structure
 
 ```
-src/
-├── app/
-│   ├── _layout.tsx        # Root layout
-│   └── index.tsx          # Main screen with state management
-├── components/
-│   ├── Header.tsx         # Institutional banner
-│   ├── StatusBadge.tsx    # Dynamic active/suspended badge
-│   ├── StudentCard.tsx    # Student ID card with props
-│   └── ScanCounter.tsx    # Gate scan counter with useState
-└── types/
-    └── student.ts         # TypeScript interfaces
+├── index.ts                   # App entrypoint (registerRootComponent)
+├── App.tsx                    # Main screen with state management
+└── src/
+    ├── components/
+    │   ├── Header.tsx         # Institutional banner
+    │   ├── StatusBadge.tsx    # Dynamic active/suspended badge
+    │   ├── StudentCard.tsx    # Student ID card with props
+    │   └── ScanCounter.tsx    # Gate scan counter with useState
+    └── types/
+        └── student.ts         # TypeScript interfaces
 ```
 
 ## Features
